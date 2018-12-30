@@ -45,14 +45,14 @@ function appendPageLinks(students) {
   // set the innerHTML of the page element to its content and the pageination string literal
   page.insertAdjacentHTML("beforeEnd", pageination);
   // get all links
-  var links = document.getElementsByClassName("pagination")[0].getElementsByTagName("a");
+  var links = document.querySelectorAll(".pagination a");
   // loop over links and add event listeners
   for(i = 0; i < links.length; i++) {
     links[i].addEventListener("click", function(e){
       // update the list of students
       showPage(students, parseInt(e.target.text))
       // remove "active" class from 
-      document.getElementsByClassName("active")[0].classList.remove("active");
+      document.querySelector(".active").classList.remove("active");
       // add "active" class to clicked link
       this.classList.add("active");
     });
@@ -61,11 +61,13 @@ function appendPageLinks(students) {
 
 // function to add search field to the page
 function addSearch() {
+  // create blueprint for search bar
+  var searchBar = `<div class="student-search">
+                    <input placeholder="Search for students...">
+                    <button>Search</button>
+                  </div>`;
   // append search bar to the header
-  document.getElementsByClassName("page-header")[0].innerHTML += `<div class="student-search">
-                                                                    <input placeholder="Search for students...">
-                                                                    <button>Search</button>
-                                                                  </div>`;
+  document.querySelector(".page-header").insertAdjacentHTML("beforeEnd", searchBar);
   // add event listener to search button
   document.querySelector(".student-search button").addEventListener("click", function() {
     // get input
